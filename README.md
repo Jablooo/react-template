@@ -170,4 +170,16 @@ ___
 
 ## Setting up Frontend of app
 
-1.i) Initialise 
+There are two major steps for setting up the frontend of the app:
+1. create fake data to ensure something can be shown of browser
+2. connect up the api from our back end and show that data instead
+
+We shall also be building from the top down. Meaning importing components which do not yet exist in the top files and working our way down creating each component as we go.
+
+1.i) Initialise react-web app.
+```
+$ yarn create react-app react-web
+$ cd react-web
+```
+
+ii) in *App.js*

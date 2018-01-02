@@ -7,12 +7,12 @@ const server = express();
 server.use(bodyParser.urlencoded());
 server.use(bodyParser.json());
 
-server.use(profilesRouter);
+server.use('/profiles', profilesRouter);
 
 server.get('/', (req, res) => {
   res.json({
     resources: [{
-      profiles: "profiles"
+      profiles: "/profiles"
     }]
   })
 });
