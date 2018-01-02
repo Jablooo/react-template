@@ -3,7 +3,7 @@
 #### Aim
 - To create a repository which I can clone in the future as a basic template for a React-App.
 - Documenting the steps taken so that others may build a similar template.
-
+___
 #### Setting up the backend api/db
 1.
 i) Set up a new folder and link it to a repository on github. cd into folder and create another new folder 'react-api'. cd into this folder and run the following commands:
@@ -140,3 +140,34 @@ router.get('/' (req, res) => {
 })
 
 ```
+
+5.i) create seeds folder and profile.js within it.
+
+```javascript
+const Profile = require('../models/profile');
+
+Profile.create([
+  {
+    firstName: "Jon",
+    lastName: "Ablondi",
+    age: 30
+  },
+  {
+    firstName: "Jen",
+    lastName: "Bennett",
+    age: 27
+  }
+]);
+
+console.log('seeding worked')
+```
+run below code to seed the database.
+```
+$ node ./seeds/profile.js
+```
+*backend done for now*
+___
+
+## Setting up Frontend of app
+
+1.i) Initialise 
