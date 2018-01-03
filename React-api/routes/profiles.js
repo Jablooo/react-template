@@ -7,4 +7,8 @@ router.get('/', (req,res) => {
   .then(profiles => res.json(profiles));
 });
 
+router.get('/home', (req,res) => {
+  res.send('This should be home page 1\n');
+});
+
 module.exports = router;
