@@ -6,10 +6,10 @@ export default function ProfileList({ profiles }) {
     <div>
       <h1>Profile List</h1>
       {
-        // profiles.map(profile => {
-        console.log(profiles)
-      //   return <Profile {...profile} />
-      // })
+        profiles.map(profile => {
+          console.log(profile)
+        return <Profile {...profile} />
+      })
       }
     </div>
   )
