@@ -3,7 +3,9 @@ import './App.css';
 import ProfileList from './components/ProfileList';
 
 class App extends Component {
-  state = { profiles: null}
+  state = {
+    profiles: null
+  }
 
   componentDidMount(){
     fetch('/profiles')
