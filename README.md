@@ -266,3 +266,41 @@ export default function Profile ({
   )
 }
 ```
+
+check to see if hard coded profile come out on browser
+
+v) Add to *Package.js*
+```javascript
+"proxy": "http://localhost:7000"
+```
+
+vi) Alter information in componentDidMount section of *App.js*
+```javascript
+fetch('/profiles')
+  .then(res => res.json())
+  .then(profiles => {
+    this.setState({ profiles })
+  })
+  .catch(error => { console.log(error)})
+// this.setState({
+//   profiles: [
+//     {
+//       _id: "2b2j2b",
+//       firstName: "Jojo",
+//       lastName: "Crochets",
+//       age: 121
+//     }
+//   ]
+// })
+```
+
+the seeded profiles from the database should now be showing on the homepage.
+*Frontend done for now*
+___
+
+## Setting up authentication with tokens
+
+1.i) add the following three dependencies to the backend package.json
+```
+$ yarn add passport passport-local passport-local-mongoose
+```
