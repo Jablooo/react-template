@@ -1,10 +1,14 @@
-const express = require('express');
-const router = express.Router();
-const Profile = require('../models/profile.js');
+const express = require('express')
+const router = express.Router()
+const Profile = require('../models/profile.js')
 
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
   Profile.find()
-  .then(profiles => res.json(profiles));
-});
+  .then(profiles => res.json(profiles))
+})
 
-module.exports = router;
+router.get('/test', (req, res) => {
+  res.send('This is a GET 1\n')
+})
+
+module.exports = router

@@ -183,3 +183,124 @@ $ cd react-web
 ```
 
 ii) in *App.js*
+
+```javascript
+import React, { Component } from 'react';
+import './App.css';
+import ProfileList from './components/ProfileList';
+
+class App extends Component {
+  state = {
+    profiles: []
+  }
+
+  componentDidMount(){
+    this.setState({
+      profiles: [
+        {
+          _id: "2b2j2b",
+          firstName: "Jojo",
+          lastName: "Crochets",
+          age: 121
+        }
+      ]
+    })
+  };
+  render(){
+    const { profiles } = this.state;
+    return(
+      <div className="App">
+        {
+          profiles ? (
+            <ProfileList profiles={profiles} />
+          ) : ("Loading...")
+        }
+      </div>
+    );
+  }
+};
+
+export default App;
+```
+
+iii) create a component folder within src and create a file *ProfileList.js*
+
+we will use this file to go through all the profiles within the back end and outpout them to the screen.
+
+```javascript
+import React from 'react'
+import Profile from './Profile'
+
+export default function ProfileList ({ profiles }) {
+  return (
+    <div>
+      <h1>Profile List</h1>
+      {
+        profiles.map(profile => {
+          console.log(profile)
+          return <Profile {...profile} />
+        })
+      }
+    </div>
+  )
+}
+```
+
+iv) previous step called in a component called Profile so lets create *Profile.js* still within components
+
+```javascript
+import React from 'react'
+
+export default function Profile ({
+  firstName,
+  lastName,
+  age
+}) {
+  return (
+    <div>
+      <span> name: {firstName} {lastName} </span>
+      &nbsp;
+      <span> age: {age} </span>
+      &nbsp;
+    </div>
+  )
+}
+```
+
+check to see if hard coded profile come out on browser
+
+v) Add to *Package.js*
+```javascript
+"proxy": "http://localhost:7000"
+```
+
+vi) Alter information in componentDidMount section of *App.js*
+```javascript
+fetch('/profiles')
+  .then(res => res.json())
+  .then(profiles => {
+    this.setState({ profiles })
+  })
+  .catch(error => { console.log(error)})
+// this.setState({
+//   profiles: [
+//     {
+//       _id: "2b2j2b",
+//       firstName: "Jojo",
+//       lastName: "Crochets",
+//       age: 121
+//     }
+//   ]
+// })
+```
+
+the seeded profiles from the database should now be showing on the homepage.
+*Frontend done for now*
+___
+
+## Setting up authentication with tokens
+
+1.i) add the following three dependencies to the backend package.json
+```
+$ yarn add passport passport-local passport-local-mongoose
+```
