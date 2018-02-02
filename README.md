@@ -269,7 +269,7 @@ export default function Profile ({
 
 check to see if hard coded profile come out on browser
 
-v) Add to *Package.js*
+v) Add to *Package.jsonÂ*
 ```javascript
 "proxy": "http://localhost:7000"
 ```
@@ -300,7 +300,67 @@ ___
 
 ## Setting up authentication with tokens
 
-1.i) add the following three dependencies to the backend package.json
+BACKEND
+1.i) add the following three dependencies to package.json
 ```
 $ yarn add passport passport-local passport-local-mongoose
+```
+
+ii) before creating our user model we will refactor our current profile model so as to take out the mongoose component which can then be called into any future models we wish to create. Create *base.js* in models.
+- cut lines 1-7 from *profile.js* and paste them into *base.js*
+- add the line
+```javascript
+module.exports = mongoose
+```
+- in *profile.js* call in the new base model at the top of the page
+```javascript
+const mongoose = require('./base')
+```
+
+iii) creation of the *user.js* file within models
+
+- call in the base model as before
+
+```javascript
+const passportLocalMongoose = require('passport-local-mongoose')
+const Schema = mongoose.Schema
+const ObjectId = Schema.Types.ObjectId
+
+const UserSchema = Schema({
+  // firstName: String
+  account: { type: ObjectId, ref: 'Profile' },
+  admin: Boolean
+})
+
+// extend the schema with our Passport plugin
+UserSchema.plugin(passportLocalMongoose, {
+  usernameField: 'email',
+  usernameLowerCase: true,
+  session: false
+})
+
+const User = mongoose.models.User || mongoose.model('User', UserSchema)
+
+module.exports = User
+```
+iv) in routes folder, create *auth.js* which will deal with the authentication routes for signin and registry
+
+```javascript
+const express = require('express')
+
+const router = new express.Router()
+
+router.post('/register', (req, res) => {
+  res.json({ user: req.user })
+})
+
+router.post('/signin', (req, res) => {
+  res.json({ user: req.user })
+})
+
+module.exports = router
+```
+v)
+```
+$ yarn add passport-jwt jwt-decode jsonwebtoken express-jwt express-session
 ```
